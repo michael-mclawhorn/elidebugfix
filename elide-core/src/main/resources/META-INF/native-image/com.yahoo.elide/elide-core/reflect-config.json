@@ -1,0 +1,212 @@
+[
+  {
+    "name": "com.github.benmanes.caffeine.cache.SSSMSW",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.yahoo.elide.core.security.checks.prefab.Collections$AppendOnly",
+    "allDeclaredMethods": true,
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.yahoo.elide.core.security.checks.prefab.Collections$RemoveOnly",
+    "allDeclaredMethods": true,
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.yahoo.elide.core.utils.coerce.converters.EpochToDateConverter",
+    "allDeclaredConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredClasses" : true,
+    "allPublicClasses" : true
+  },
+  {
+    "name": "com.yahoo.elide.core.utils.coerce.converters.InstantSerde",
+    "allDeclaredConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredClasses" : true,
+    "allPublicClasses" : true
+  },
+  {
+    "name": "com.yahoo.elide.core.utils.coerce.converters.ISO8601DateSerde",
+    "allDeclaredConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredClasses" : true,
+    "allPublicClasses" : true
+  },
+  {
+    "name": "com.yahoo.elide.core.utils.coerce.converters.OffsetDateTimeSerde",
+    "allDeclaredConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredClasses" : true,
+    "allPublicClasses" : true
+  },
+  {
+    "name": "com.yahoo.elide.core.utils.coerce.converters.URLSerde",
+    "allDeclaredConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "allDeclaredClasses" : true,
+    "allPublicClasses" : true
+  },
+  {
+    "name": "com.yahoo.elide.jsonapi.models.Data",
+    "allDeclaredFields": true,
+    "allDeclaredMethods": true,
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.yahoo.elide.jsonapi.models.JsonApiDocument",
+    "allDeclaredFields": true,
+    "allDeclaredMethods": true,
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.yahoo.elide.jsonapi.models.JsonApiError",
+    "allDeclaredFields": true,
+    "allDeclaredMethods": true,
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.yahoo.elide.jsonapi.models.JsonApiError$Links",
+    "allDeclaredFields": true,
+    "allDeclaredMethods": true,
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.yahoo.elide.jsonapi.models.JsonApiError$Source",
+    "allDeclaredFields": true,
+    "allDeclaredMethods": true,
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.yahoo.elide.jsonapi.models.JsonApiErrors",
+    "allDeclaredFields": true,
+    "allDeclaredMethods": true,
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.yahoo.elide.jsonapi.models.KeyValMap",
+    "allDeclaredFields": true,
+    "allDeclaredMethods": true,
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.yahoo.elide.jsonapi.models.Meta",
+    "allDeclaredFields": true,
+    "allDeclaredMethods": true,
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.yahoo.elide.jsonapi.models.Operation",
+    "allDeclaredFields": true,
+    "allDeclaredMethods": true,
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.yahoo.elide.jsonapi.models.Operation$OperationCode",
+    "allDeclaredFields": true,
+    "allDeclaredMethods": true,
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.yahoo.elide.jsonapi.models.Operations",
+    "allDeclaredFields": true,
+    "allDeclaredMethods": true,
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.yahoo.elide.jsonapi.models.Patch",
+    "allDeclaredFields": true,
+    "allDeclaredMethods": true,
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.yahoo.elide.jsonapi.models.Ref",
+    "allDeclaredFields": true,
+    "allDeclaredMethods": true,
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.yahoo.elide.jsonapi.models.Relationship",
+    "allDeclaredFields": true,
+    "allDeclaredMethods": true,
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.yahoo.elide.jsonapi.models.Resource",
+    "allDeclaredFields": true,
+    "allDeclaredMethods": true,
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.yahoo.elide.jsonapi.models.ResourceIdentifier",
+    "allDeclaredFields": true,
+    "allDeclaredMethods": true,
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.yahoo.elide.jsonapi.models.Result",
+    "allDeclaredFields": true,
+    "allDeclaredMethods": true,
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.yahoo.elide.jsonapi.models.Results",
+    "allDeclaredFields": true,
+    "allDeclaredMethods": true,
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.yahoo.elide.jsonapi.serialization.DataSerializer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.yahoo.elide.jsonapi.serialization.DataDeserializer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.yahoo.elide.jsonapi.serialization.JsonApiErrorSerializer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.yahoo.elide.jsonapi.serialization.JsonApiSetSerializer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.yahoo.elide.jsonapi.serialization.KeySerializer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "com.yahoo.elide.jsonapi.serialization.MetaDeserializer",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "java.util.LinkedHashSet",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "java.util.Calendar[]"
+  },
+  {
+    "name": "java.sql.Date[]"
+  },
+  {
+    "name": "java.sql.Time[]"
+  },
+  {
+    "name": "java.sql.Timestamp[]"
+  },
+  {
+    "name": "org.apache.calcite.avatica.AvaticaJdbc41Factory",
+    "allDeclaredConstructors": true
+  },
+  {
+    "name": "org.apache.calcite.jdbc.CalciteJdbc41Factory",
+    "allDeclaredConstructors": true
+  }
+]
