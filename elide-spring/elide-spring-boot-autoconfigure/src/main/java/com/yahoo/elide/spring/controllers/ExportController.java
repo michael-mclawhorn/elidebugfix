@@ -5,6 +5,8 @@
  */
 package com.yahoo.elide.spring.controllers;
 
+import com.yahoo.elide.async.service.ExportDownloadAuthorizer;
+import com.yahoo.elide.async.service.dao.AsyncApiDao;
 import com.yahoo.elide.async.service.storageengine.ResultStorageEngine;
 import com.yahoo.elide.core.exceptions.HttpStatus;
 
@@ -16,11 +18,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.StreamingResponseBody;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.security.Principal;
 import java.util.function.Consumer;
 
 /**
@@ -36,10 +40,12 @@ import java.util.function.Consumer;
 public class ExportController {
 
     private ResultStorageEngine resultStorageEngine;
+    private ExportDownloadAuthorizer authorizer;
 
-    public ExportController(ResultStorageEngine resultStorageEngine) {
+    public ExportController(ResultStorageEngine resultStorageEngine, AsyncApiDao asyncApiDao) {
         log.debug("Started ~~");
         this.resultStorageEngine = resultStorageEngine;
+        this.authorizer = new ExportDownloadAuthorizer(asyncApiDao);
     }
 
     /**
@@ -50,7 +56,15 @@ public class ExportController {
      */
     @GetMapping(path = "/{asyncQueryId}")
     public ResponseEntity<StreamingResponseBody> export(@PathVariable String asyncQueryId,
-            HttpServletResponse response) {
+            HttpServletRequest request, HttpServletResponse response) {
+        // Enforce the TableExport owner-or-admin model before streaming (see ExportDownloadAuthorizer).
+        // 404 (not 403) on a non-owner/missing export to match the metadata route's non-disclosure.
+        // NOTE: the admin-role source here is the servlet container; deployments that map roles via a
+        // custom Elide User should confirm "admin" resolves the same way as AsyncApiAdmin.
+        Principal principal = request.getUserPrincipal();
+        if (!authorizer.isAuthorized(asyncQueryId, principal, request.isUserInRole("admin"))) {
+            return ResponseEntity.status(org.springframework.http.HttpStatus.NOT_FOUND).build();
+        }
         Consumer<OutputStream> observableResults = resultStorageEngine.getResultsByID(asyncQueryId);
         StreamingResponseBody streamingOutput = outputStream -> {
             try {

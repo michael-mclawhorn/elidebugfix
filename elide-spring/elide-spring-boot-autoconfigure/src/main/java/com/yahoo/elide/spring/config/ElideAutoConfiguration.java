@@ -22,6 +22,7 @@ import com.yahoo.elide.async.AsyncSettingsBuilderCustomizer;
 import com.yahoo.elide.async.AsyncSettingsBuilderCustomizers;
 import com.yahoo.elide.async.models.AsyncQuery;
 import com.yahoo.elide.async.models.TableExport;
+import com.yahoo.elide.async.service.dao.AsyncApiDao;
 import com.yahoo.elide.async.service.storageengine.ResultStorageEngine;
 import com.yahoo.elide.core.TransactionRegistry;
 import com.yahoo.elide.core.audit.AuditLogger;
@@ -961,8 +962,9 @@ public class ElideAutoConfiguration {
         @Bean
         @ConditionalOnMissingBean
         @ConditionalOnProperty(name = "elide.async.export.enabled", havingValue = "true")
-        public ExportController exportController(ResultStorageEngine resultStorageEngine) {
-            return new ExportController(resultStorageEngine);
+        public ExportController exportController(ResultStorageEngine resultStorageEngine,
+                AsyncApiDao asyncApiDao) {
+            return new ExportController(resultStorageEngine, asyncApiDao);
         }
     }
 

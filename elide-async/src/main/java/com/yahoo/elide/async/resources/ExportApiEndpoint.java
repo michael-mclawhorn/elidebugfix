@@ -5,6 +5,8 @@
  */
 package com.yahoo.elide.async.resources;
 
+import com.yahoo.elide.async.service.ExportDownloadAuthorizer;
+import com.yahoo.elide.async.service.dao.AsyncApiDao;
 import com.yahoo.elide.async.service.storageengine.ResultStorageEngine;
 
 import jakarta.inject.Inject;
@@ -22,6 +24,7 @@ import jakarta.ws.rs.core.Context;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import jakarta.ws.rs.core.Response.ResponseBuilder;
+import jakarta.ws.rs.core.SecurityContext;
 import jakarta.ws.rs.core.StreamingOutput;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -42,6 +45,7 @@ import java.util.function.Consumer;
 public class ExportApiEndpoint {
     protected final ExportApiProperties exportApiProperties;
     protected final ResultStorageEngine resultStorageEngine;
+    protected final ExportDownloadAuthorizer authorizer;
 
     @Data
     @AllArgsConstructor
@@ -53,9 +57,11 @@ public class ExportApiEndpoint {
     @Inject
     public ExportApiEndpoint(
             @Named("resultStorageEngine") ResultStorageEngine resultStorageEngine,
-            @Named("exportApiProperties") ExportApiProperties exportApiProperties) {
+            @Named("exportApiProperties") ExportApiProperties exportApiProperties,
+            AsyncApiDao asyncApiDao) {
         this.resultStorageEngine = resultStorageEngine;
         this.exportApiProperties = exportApiProperties;
+        this.authorizer = new ExportDownloadAuthorizer(asyncApiDao);
     }
 
     /**
@@ -67,12 +73,21 @@ public class ExportApiEndpoint {
     @GET
     @Path("/{asyncQueryId}")
     public void get(@PathParam("asyncQueryId") String asyncQueryId, @Context HttpServletResponse httpServletResponse,
-            @Suspended final AsyncResponse asyncResponse) {
+            @Context SecurityContext securityContext, @Suspended final AsyncResponse asyncResponse) {
         asyncResponse.setTimeout(exportApiProperties.getMaxDownloadTime().toSeconds(), TimeUnit.SECONDS);
         asyncResponse.setTimeoutHandler(async -> {
             ResponseBuilder resp = Response.status(Response.Status.REQUEST_TIMEOUT).entity("Timed out.");
             async.resume(resp.build());
         });
+
+        // Enforce the TableExport owner-or-admin model before streaming (see ExportDownloadAuthorizer).
+        // 404 (not 403) on a non-owner/missing export to match the metadata route's non-disclosure.
+        if (!authorizer.isAuthorized(asyncQueryId, securityContext.getUserPrincipal(),
+                securityContext.isUserInRole("admin"))) {
+            String errorMessage = asyncQueryId + " Not Found";
+            asyncResponse.resume(Response.status(Response.Status.NOT_FOUND).entity(errorMessage).build());
+            return;
+        }
 
         exportApiProperties.getExecutor().submit(() -> {
             Consumer<OutputStream> observableResults = resultStorageEngine.getResultsByID(asyncQueryId);
